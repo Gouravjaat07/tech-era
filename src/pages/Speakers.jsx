@@ -377,14 +377,14 @@ const SPEAKERS = [
   // ── CHANGE 1: added photo + real LinkedIn URL ──
   { name:"Pragati Srivastava", role:"Java Backend Developer", company:"Ex-Amazon",  initials:"PS", accent:"#00EEFF", event:"Developers Meetup 2026", eventAccent:"#00EEFF", quote:"Building at scale taught me that great code isn't just functional — it tells a story future devs can read.", topic:"Backend Architecture & Career Growth", photo:"/images/pragati-srivastava.png", linkedin:"https://www.linkedin.com/in/pragatisri/", twitter:"#", instagram:"#" },
   // { name:"Bhawna Chauhan",   role:"Founder - SheBuilds",    company:"Developer Relations Engineer | MLH Fellow | GitHub Campus Expert",      initials:"SM", accent:"#4ADE80", event:"CV to Career Workshop",   eventAccent:"#4ADE80", quote:" Open source and communities are not just about code — they’re about collaboration, learning, and creating opportunities for the next generation of innovators.",          topic:"Building Impactful Tech Communities & Growing Through Open Source", photo: "/images/Bhawna.png",    linkedin:"https://www.linkedin.com/in/connectbhawna?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", twitter:"#", instagram:"https://www.instagram.com/connect.bhawna?igsh=MWtqemhqOXc0bTdueQ==" },
-//   { name:"Apoorva Bajaj",      role:"Co-Founder & CEO",       company:"Edubuk",      initials:"AB", accent:"#A78BFA", event:"CV to Career Workshop",   eventAccent:"#4ADE80", quote:"The gap between talent and opportunity is often just a trusted signal. TruCV closes that gap permanently.", topic:"EdTech, Careers & Startup",          linkedin:"#", twitter:"#", instagram:"#" },
+  { name:"Gautam Kumar",      role:"Developer Advocate",       company:"Fetch.ai",      initials:"GK", accent:"#A78BFA", event:"",   eventAccent:"#4ADE80", quote:"Great developers don’t just write code — they build communities and create impact.", photo: "/images/Gautam.png", topic:"Building AI Agents & Growing as a Developer Advocate",          linkedin:"https://www.linkedin.com/in/gautammanak1/", twitter:"#", instagram:"#" },
 ];
 
 const TESTIMONIALS = [
   { quote:"Speaking at TechEra was one of the most energizing experiences of my career. The audience was genuinely curious and asked the sharpest questions.", name:"Pragati Srivastava", role:"Ex-Amazon · Java Backend", initials:"PS", accent:"#00EEFF",
     photo:"/images/pragati-srivastava.png" },
   // { quote:"Empowering the next generation of developers by building communities, contributing to open source, and turning ideas into impactful innovations. ✨", name:"Bhawna Chauhan",   role:"Founder - SheBuilds",photo: "/images/Bhawna.png",   initials:"SM", accent:"#4ADE80" },
-  // { quote:"I expected a good audience. I didn't expect the depth of conversation after my talk. Real builders, real questions.",                                name:"Apoorva Bajaj",      role:"CEO · Edubuk",           initials:"AB", accent:"#A78BFA" },
+  { quote:"Technology is not just about writing better code; it’s about solving real problems, empowering communities, and inspiring the next generation of developers to build, innovate, and create impact.",  name:"Gautam Kumar",      role:"Developer Advocate · Fetch.ai", photo: "/images/Gautam.png",          initials:"GK", accent:"#A78BFA" },
 ];
 
 const BENEFITS = [
