@@ -399,7 +399,7 @@ const INITIAL_EVENTS = [
     ],
     speakers:[
       {name:"Pragati Srivastava",tagline:"Java Backend Developer, Ex-Amazon",initials:"PS",accent:"#00EEFF",linkedin:"https://www.linkedin.com/in/pragatisri/"},
-      {name:"Bhawna Chauhan",tagline:"",initials:"BC",accent:"#00EEFF",linkedin:"https://www.linkedin.com/in/connectbhawna?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"}
+      {name:"Gautam Kumar",tagline:"",initials:"GK",accent:"#00EEFF",linkedin:"https://www.linkedin.com/in/gautammanak1/"},
     ],
     sponsors:[
       {name:"Tech4Hack",       tagline:"Venue Partner",      initials:"TH", accent:"#FEBC2E", linkedin:"https://www.linkedin.com/company/tech4hack/"},
