@@ -42,12 +42,11 @@ const departments = [
     gradient: "linear-gradient(135deg,rgba(0,238,255,0.10),rgba(79,70,229,0.10))",
     description: "Building the digital backbone of TechEra — from the website to internal tools and automation.",
     lead:   { id: "t1", name: "Gourav",  role: "Tech Lead", initials: "GJ", linkedin: "https://www.linkedin.com/in/gourav-jaat/", github: "https://github.com/Gouravjaat07", skills: ["React", "Full Stack", "AWS"], image: "/images/Gourav_IMG_2.png" },
-    coLead: { id: "t2", name: "TBA", role: "Co-Lead",   initials: "A", linkedin: "#", github: "#", skills: ["Vue.js", "MongoDB", "Docker"] },
+    coLead: { id: "t2", name: "Rewa Gupta", role: "Co-Lead",   initials: "RG", linkedin: "https://www.linkedin.com/in/rewa-gupta-0303b232a?utm_source=share_via&utm_content=profile&utm_medium=member_android", github: "https://github.com/Rewagupta", image: "/images/tech-colead.jpeg", skills: ["Git", "MongoDB", "Full Stack"] },
     members: [
       { id: "tm1", name: "Sudesh",        role: "Frontend Dev", initials: "SD", linkedin: "https://www.linkedin.com/in/sudesh-tanwar-a406a7338?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
       { id: "tm2", name: "Aditya Sharma", role: "DevOps",       initials: "AS", linkedin: "https://www.linkedin.com/in/aditya-sharma-8b2aa9244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
-      { id: "tm3", name: "Rewa Gupta",    role: "Frontend Dev", initials: "RG", linkedin: "https://www.linkedin.com/in/rewa-gupta-0303b232a?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
-      { id: "tm4", name: "Shubham",       role: "Backend",      initials: "SH", linkedin: "https://www.linkedin.com/in/shubham-saini-630502379?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+      { id: "tm3", name: "Shubham",       role: "Frontend",      initials: "SH", linkedin: "https://www.linkedin.com/in/shubham-saini-630502379?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
     ],
   },
   {
