@@ -338,14 +338,6 @@ const GALLERY_ITEMS = [
   { id:14, src:"/event_images/developers_meetup14.jpg", caption:"Game Arena",  event:"Developers Meetup 2026",  category:"Meetup", accent:"#00EEFF" },
   { id:15, src:"/event_images/developers_meetup15.jpg", caption:"Participants pitching",  event:"Developers Meetup 2026",  category:"Meetup", accent:"#00EEFF" },
   { id:16, src:"/event_images/developers_meetup16.jpg", caption:"Our Winners",  event:"Developers Meetup 2026",  category:"Meetup", accent:"#00EEFF" },
-  { id:17, src:"/images/gallery/collab-6.jpg",  caption:"Hyperspace Hackathon",      event:"Hyperspace Hackathon",   category:"Collabs",  accent:"#818CF8" },
-  { id:18, src:"/images/gallery/collab-7.jpg",  caption:"AI For All — Microsoft",    event:"AI For All",             category:"Collabs",  accent:"#38BDF8" },
-  { id:19, src:"/images/gallery/collab-8.jpg",  caption:"SHIFT2K25 Pre-Meetup",      event:"SHIFT2K25",              category:"Collabs",  accent:"#34D399" },
-  { id:20, src:"/images/gallery/collab-9.jpg",  caption:"NERDZ'26 @ Jamia Hamdard", event:"NERDZ'26",               category:"Collabs",  accent:"#F472B6" },
-  // ── Behind the Scenes ──
-  { id:21, src:"/images/gallery/bts-1.jpg",     caption:"Team Briefing — Pre-event", event:"Behind the Scenes",      category:"BTS",      accent:"#4F46E5" },
-  { id:22, src:"/images/gallery/bts-2.jpg",     caption:"Setting Up the Venue",      event:"Behind the Scenes",      category:"BTS",      accent:"#4F46E5" },
-  { id:23, src:"/images/gallery/bts-3.jpg",     caption:"Organiser Team",            event:"Behind the Scenes",      category:"BTS",      accent:"#4F46E5" },
 ];
 
 const FILTERS = ["All", "Meetup", "Workshop", "Collabs", "BTS"];
