@@ -70,6 +70,12 @@ const GlobalStyles = () => (
     .tier-gold { background: rgba(254,188,46,.1); border: 1px solid rgba(254,188,46,.3); color: #FEBC2E; }
     .tier-silver { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); color: #A78BFA; }
     .tier-community { background: rgba(0,238,255,.08); border: 1px solid rgba(0,238,255,.25); color: #00EEFF; }
+    .tier-upskilling { background: rgba(0,238,255,.08); border: 1px solid rgba(0,238,255,.25); color: #00EEFF; }
+    .tier-job { background: rgba(254,188,46,.08); border: 1px solid rgba(254,188,46,.3); color: #FEBC2E; }
+    .tier-in-kind { background: rgba(167,139,250,.08); border: 1px solid rgba(167,139,250,.3); color: #A78BFA; }
+    .tier-goodies { background: rgba(254,188,46,.08); border: 1px solid rgba(254,188,46,.3); color: #FEBC2E; }
+    .tier-innovation { background: rgba(254,188,46,.08); border: 1px solid rgba(254,188,46,.3); color: #FEBC2E; }
+    .tier-venue { background: rgba(148,163,184,.08); border: 1px solid rgba(148,163,184,.3); color: #94A3B8; }
 
     /* ── SPONSORS SHOWCASE GRID ── */
     .sp-showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -228,41 +234,8 @@ const SPECIAL_SPONSORS = [
     tagline: "Our longest-standing partner providing venues, technical resources, and community support for TechEra events.",
     tags: ["Venue Partner", "Open Source", "Community"],
     events: ["Dev Meetup 2026", "Hackathon 2025", "Workshop Series"],
-    featured: false   // ✅ Now small card
+    featured: false
   },
-  {
-    id: "digimation",
-    name: "Digimation Flight",
-    logo: "/logos/Digimation.jpeg",
-    tier: "UpSkilling",
-    tierColor: "#00EEFF",
-    tierBg: "rgba(0,238,255,.07)",
-    tierBorder: "rgba(0,238,255,.25)",
-    accent: "#00EEFF",
-    gradient: "linear-gradient(135deg,#00EEFF,#06B6D4)",
-    tagline: "Empowering the TechEra community with industry-relevant upskilling programs, hands-on training, and career acceleration opportunities.",
-    tags: ["Upskilling Partner", "Training", "Career Growth"],
-    events: ["Dev Meetup 2026"],
-    featured: true,
-
-    perks: [
-        {
-        icon: "🎯",
-        title: "Industry-Focused Training",
-        desc: "Delivers practical, real-world skill development programs aligned with current tech industry demands."
-        },
-        {
-        icon: "📚",
-        title: "Hands-on Workshops",
-        desc: "Conducts interactive workshops and live sessions to enhance technical and professional skills."
-        },
-        {
-        icon: "🚀",
-        title: "Career Acceleration",
-        desc: "Supports learners with mentorship, guidance, and pathways to internships and job opportunities."
-        }
-    ]
-    },
   {
     id: "edubuk",
     name: "Edubuk",
@@ -278,7 +251,6 @@ const SPECIAL_SPONSORS = [
     events: ["CV to Career Workshop", "Dev Meetup 2026"],
     featured: false,
   },
-
   {
     id: "osen",
     name: "OSEN",
@@ -294,7 +266,6 @@ const SPECIAL_SPONSORS = [
     events: ["Dev Meetup 2026"],
     featured: false,
   },
-
   {
     id: "MetaSpace",
     name: "MetaSpace",
@@ -310,7 +281,6 @@ const SPECIAL_SPONSORS = [
     events: ["Dev Meetup 2026"],
     featured: false,
   },
-
   {
     id: "OppSkill",
     name: "Opp Skill",
@@ -327,7 +297,6 @@ const SPECIAL_SPONSORS = [
     featured: false,
   },
 ];
-
 
 const BENEFITS = [
   { icon: "👁️", color: "#00EEFF", bg: "rgba(0,238,255,.1)", border: "rgba(0,238,255,.2)", title: "Brand Visibility", desc: "Your logo on all event materials, banners, digital assets, and social media posts reaching 10K+ developers." },
@@ -413,17 +382,12 @@ function FeaturedSponsorCard({ sp }) {
       <div className="sp-sponsor-logo-area">
         <div className="sp-logo-ring-wrap" style={{ marginLeft: 0 }}>
           <div className="sp-logo-ring" style={{ borderColor: sp.accent }} />
-          {/* // AFTER (uses logo image, consistent with FeaturedSponsorCard) */}
-<div className="sp-logo-box" style={{ background: `${sp.accent}10`, borderColor: `${sp.accent}28`, boxShadow: hov ? `0 0 22px ${sp.accent}20` : "none" }}>
-  <img
-    src={sp.logo}
-    alt={sp.name}
-    style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }}
-  />
-</div>
+          <div className="sp-logo-box" style={{ background: `${sp.accent}10`, borderColor: `${sp.accent}30`, boxShadow: hov ? `0 0 32px ${sp.accent}25` : "none" }}>
+            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : sp.emoji}
+          </div>
         </div>
         <div style={{ marginBottom: 10 }}>
-          <div className={`sp-tier-badge tier-${sp.tier.toLowerCase()}`} style={{ marginBottom: 10 }}>
+          <div className={`sp-tier-badge tier-${sp.tier.toLowerCase().replace(/\s+/g, '-')}`} style={{ marginBottom: 10 }}>
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: sp.tierColor, display: "inline-block", animation: "pulseGlow 2s infinite" }} />
             {sp.tier} Partner
           </div>
@@ -440,18 +404,20 @@ function FeaturedSponsorCard({ sp }) {
       </div>
 
       {/* Right: perks */}
-      <div className="sp-sponsor-perks-area">
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: ".12em", fontFamily: "Space Mono,monospace", marginBottom: 4 }}>Partnership Highlights</div>
-        {sp.perks.map((p, i) => (
-          <div key={i} className="sp-sponsor-perk-row" style={{ borderColor: hov ? `${sp.accent}18` : "rgba(255,255,255,.04)" }}>
-            <div className="sp-sponsor-perk-icon">{p.icon}</div>
-            <div>
-              <div className="sp-sponsor-perk-title">{p.title}</div>
-              <div className="sp-sponsor-perk-desc">{p.desc}</div>
+      {sp.perks && (
+        <div className="sp-sponsor-perks-area">
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: ".12em", fontFamily: "Space Mono,monospace", marginBottom: 4 }}>Partnership Highlights</div>
+          {sp.perks.map((p, i) => (
+            <div key={i} className="sp-sponsor-perk-row" style={{ borderColor: hov ? `${sp.accent}18` : "rgba(255,255,255,.04)" }}>
+              <div className="sp-sponsor-perk-icon">{p.icon}</div>
+              <div>
+                <div className="sp-sponsor-perk-title">{p.title}</div>
+                <div className="sp-sponsor-perk-desc">{p.desc}</div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -469,27 +435,11 @@ function SponsorCard({ sp }) {
       <div className="sp-sponsor-logo-area">
         <div className="sp-logo-ring-wrap">
           <div className="sp-logo-ring" style={{ borderColor: sp.accent }} />
-          <div
-            className="sp-logo-box"
-            style={{
-                background: `${sp.accent}10`,
-                borderColor: `${sp.accent}28`,
-                boxShadow: hov ? `0 0 22px ${sp.accent}20` : "none"
-            }}
-            >
-            <img
-                src={sp.logo}
-                alt={sp.name}
-                style={{
-                width: "60px",
-                height: "60px",
-                objectFit: "cover",
-                borderRadius: "14px"
-                }}
-            />
-            </div>
+          <div className="sp-logo-box" style={{ background: `${sp.accent}10`, borderColor: `${sp.accent}28`, boxShadow: hov ? `0 0 22px ${sp.accent}20` : "none" }}>
+            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : sp.emoji}
+          </div>
         </div>
-        <div className={`sp-tier-badge tier-${sp.tier.toLowerCase()}`} style={{ marginBottom: 10 }}>
+        <div className={`sp-tier-badge tier-${sp.tier.toLowerCase().replace(/\s+/g, '-')}`} style={{ marginBottom: 10 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: sp.tierColor, display: "inline-block" }} />
           {sp.tier} Partner
         </div>
@@ -638,7 +588,7 @@ export default function SponsorsPage() {
             {/* Mini trust row */}
             <div style={{ marginTop: 20, padding: "18px 20px", borderRadius: 16, border: "1px solid rgba(0,238,255,.1)", background: "rgba(0,238,255,.04)", display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
               <div style={{ fontSize: 10, fontWeight: 700, color: "#475569", fontFamily: "Space Mono,monospace", textTransform: "uppercase", letterSpacing: ".1em", flexShrink: 0 }}>Trusted by</div>
-              {["Tech4Hack", "Edubuk", "OSEN", "Digimation"].map(name => (
+              {["Tech4Hack", "Edubuk", "OSEN", "MetaSpace", "Opp Skill"].map(name => (
                 <div key={name} style={{ padding: "4px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,.06)", background: "rgba(255,255,255,.03)", fontSize: 11, fontWeight: 700, color: "#64748B", fontFamily: "Space Mono,monospace" }}>{name}</div>
               ))}
             </div>
@@ -651,7 +601,7 @@ export default function SponsorsPage() {
         <div className="sp-trust-inner">
           <div className="sp-trust-label">Official Partners →</div>
           <div className="sp-trust-logos">
-            {["🚀 Tech4Hack", "🎓 Edubuk", "🎁 OSEN", "🍕 Digimation Flight", "🤝 CracKed", "🌐 Idevion", "⚡ Hackfinity"].map(name => (
+            {["🚀 Tech4Hack", "🎓 Edubuk", "🎁 OSEN", "🤝 MetaSpace", "⚡ Opp Skill"].map(name => (
               <div key={name} className="sp-trust-logo-chip">{name}</div>
             ))}
           </div>
@@ -771,50 +721,6 @@ export default function SponsorsPage() {
         </div>
       </section>
 
-      {/* ── SPONSORSHIP TIERS ─────────────────────────────────────────────────── */}
-      {/* <section className="sp-section">
-        <div className="sp-section-head">
-          <div className="sp-sec-eyebrow" style={{ borderColor: "rgba(167,139,250,.25)", background: "rgba(167,139,250,.06)", color: "#A78BFA" }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#A78BFA", display: "inline-block" }} />
-            PARTNERSHIP TIERS
-          </div>
-          <h2 className="sp-sec-title">Choose your level of<br /><span className="gold-text">impact</span></h2>
-          <p className="sp-sec-sub">Every tier is a real partnership. Pick what fits — or tell us what you have in mind and we'll build something custom.</p>
-        </div>
-
-        <div className="sp-tiers-grid">
-          {SPONSOR_TIERS.map(tier => (
-            <div key={tier.name} className={`sp-tier-card${tier.highlight ? " highlight" : ""}`}
-              style={{ boxShadow: tier.highlight ? `0 0 48px ${tier.color}14` : "none" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = `${tier.color}35`; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = `0 20px 60px ${tier.color}18`; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = tier.highlight ? `rgba(0,238,255,.2)` : "rgba(255,255,255,.05)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = tier.highlight ? `0 0 48px ${tier.color}14` : "none"; }}
-            >
-              {tier.popular && <div className="sp-tier-popular-badge">Most Popular</div>}
-              <div className="sp-tier-top-bar" style={{ background: tier.gradient }} />
-              <span className="sp-tier-icon">{tier.icon}</span>
-              <div className="sp-tier-name" style={{ color: tier.color }}>{tier.name} Partner</div>
-              <p className="sp-tier-desc">{tier.desc}</p>
-              <div className="sp-tier-features">
-                {tier.features.map(f => (
-                  <div key={f} className="sp-tier-feature">
-                    <div className="sp-tier-feature-dot" style={{ background: tier.color, boxShadow: `0 0 6px ${tier.color}60` }} />
-                    {f}
-                  </div>
-                ))}
-              </div>
-              <a href="#apply" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 28, padding: "12px 24px", borderRadius: 12, fontWeight: 800, fontSize: 13, background: tier.gradient, color: "#050D1A", border: "none", cursor: "pointer", textDecoration: "none", transition: "transform .2s, box-shadow .2s", fontFamily: "Manrope,sans-serif" }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04)"; e.currentTarget.style.boxShadow = `0 0 28px ${tier.color}35`; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
-              >
-                Apply for {tier.name} <ArrowRight />
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="sp-divider" /> */}
-
       {/* ── HOW IT WORKS ─────────────────────────────────────────────────────── */}
       <section className="sp-section">
         <div className="sp-section-head">
@@ -839,9 +745,6 @@ export default function SponsorsPage() {
           ))}
         </div>
       </section>
-
-      {/* ── APPLICATION FORM ─────────────────────────────────────────────────── */}
-      
     </div>
   );
 }
