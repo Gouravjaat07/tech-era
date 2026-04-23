@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@splinetool/react-spline": "^4.1.0",
-    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/oxide": "^4.2.2",
     "@tailwindcss/vite": "^4.2.2",
     "clsx": "^2.1.1",

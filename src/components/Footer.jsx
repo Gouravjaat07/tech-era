@@ -41,9 +41,9 @@ const FOOTER_NAV = [
   {
     heading: "Governance",
     links: [
-      { label: "Code of Conduct", to: "/code-of-conduct" },
-      { label: "Privacy Policy",  to: "/privacy-policy" },
-      { label: "Terms of Use",    to: "/terms-of-use" },
+      { label: "Code of Conduct", to: "/conduct" },
+      { label: "Privacy Policy",  to: "/privacy" },
+      { label: "Terms of Use",    to: "/terms" },
       { 
         label: "WhatsApp Group", 
         href: "https://chat.whatsapp.com/L5i3gkwI7gSErhUivmShMO",
@@ -185,6 +185,10 @@ export default function Footer() {
 
             <div className="flex items-center gap-4 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">
               <MapPin className="w-4 h-4 text-primary" /> India · Global Hub
+            </div>
+
+            <div className="flex items-center gap-4 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em]">
+              <Mail className="w-3.5 h-3.5 text-primary" /> techeraa151@gmail.com
             </div>
 
             <div className="flex gap-4">

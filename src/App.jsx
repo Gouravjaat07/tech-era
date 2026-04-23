@@ -5,20 +5,20 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer";
-import Home          from "./pages/Home";
-import Team          from "./pages/Team";
-import EventPage     from "./pages/Events";
-import SpeakersPage  from "./pages/Speakers";
-import Sponsors      from "./pages/Sponsor";
-import Gallery       from "./pages/Gallery";
-import Resources     from "./pages/Resources";
-import Contact       from "./pages/Contact";
-import Newsletter    from "./pages/Newsletter";
-import Connect       from "./pages/Connect";
-import CodeOfConduct from "./pages/CodeOfConduct";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfUse    from "./pages/TermsOfUse";
+import Footer        from "./components/Footer.jsx";
+import Home          from "./pages/Home.jsx";
+import Team          from "./pages/Team.jsx";
+import EventPage     from "./pages/Events.jsx";
+import SpeakersPage  from "./pages/Speakers.jsx";
+import Sponsors      from "./pages/Sponsor.jsx";
+import Gallery       from "./pages/Gallery.jsx";
+import Resources     from "./pages/Resources.jsx";
+import Contact       from "./pages/Contact.jsx";
+import Newsletter    from "./pages/Newsletter.jsx";
+import Connect       from "./pages/Connect.jsx";
+import CodeOfConduct from "./pages/CodeOfConduct.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import TermsOfUse    from "./pages/TermsOfUse.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
