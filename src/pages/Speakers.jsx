@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import { Mic2, Megaphone, Users, Award, Globe2, Zap, Gift, Lock, CheckCircle2 } from "lucide-react";
 
 // ─── GLOBAL STYLES ─────────────────────────────────────────────────────────────
 const GlobalStyles = () => (
   <style>{`
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; max-width: 100%; background: #050D1A; }
+    /* Global resets removed to favor Tailwind */
 
-    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
     @keyframes shimmer       { 0%{background-position:0% center}100%{background-position:200% center} }
     @keyframes pulseGlow     { 0%,100%{opacity:.4}50%{opacity:1} }
@@ -20,7 +19,7 @@ const GlobalStyles = () => (
     @keyframes orbitDot      { 0%{transform:rotate(0deg) translateX(52px) rotate(0deg)}100%{transform:rotate(360deg) translateX(52px) rotate(-360deg)} }
     @keyframes orbitDot2     { 0%{transform:rotate(180deg) translateX(52px) rotate(-180deg)}100%{transform:rotate(540deg) translateX(52px) rotate(-540deg)} }
 
-    .spk-page { font-family:'Manrope',system-ui,sans-serif; background:#050D1A; color:white; min-height:100vh; }
+    .spk-page { font-family: 'Plus Jakarta Sans', sans-serif; background: #050D1A; color: white; min-height: 100vh; }
 
     .shimmer-text {
       background:linear-gradient(90deg,#00EEFF 0%,#4F46E5 40%,#A78BFA 70%,#00EEFF 100%);
@@ -63,10 +62,10 @@ const GlobalStyles = () => (
       padding:5px 16px; border-radius:999px;
       border:1px solid rgba(167,139,250,.25); background:rgba(167,139,250,.07);
       font-size:11px; font-weight:700; letter-spacing:.2em; color:#A78BFA;
-      font-family:'Space Mono',monospace; margin-bottom:20px;
+      font-family: 'JetBrains Mono', monospace; margin-bottom: 20px;
     }
     .spk-hero-title {
-      font-family:'Syne',sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size:clamp(30px,5.5vw,68px);
       font-weight:900; line-height:1.02; letter-spacing:-.03em;
       color:white; margin-bottom:18px;
@@ -82,7 +81,7 @@ const GlobalStyles = () => (
       background:linear-gradient(135deg,#A78BFA,#4F46E5);
       border:none; cursor:pointer;
       transition:transform .25s,box-shadow .25s,filter .25s;
-      font-family:'Manrope',sans-serif; text-decoration:none; white-space:nowrap;
+      font-family: 'Plus Jakarta Sans', sans-serif; text-decoration:none; white-space:nowrap;
     }
     .spk-cta-primary:hover { transform:scale(1.05); box-shadow:0 0 48px rgba(167,139,250,.4); filter:brightness(1.08); }
     .spk-cta-secondary {
@@ -91,7 +90,7 @@ const GlobalStyles = () => (
       font-weight:700; font-size:clamp(12px,1.4vw,14px); color:#94A3B8;
       border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03);
       cursor:pointer; transition:all .25s;
-      font-family:'Manrope',sans-serif; text-decoration:none; white-space:nowrap;
+      font-family: 'Plus Jakarta Sans', sans-serif; text-decoration:none; white-space:nowrap;
     }
     .spk-cta-secondary:hover { color:#A78BFA; border-color:rgba(167,139,250,.3); background:rgba(167,139,250,.05); }
 
@@ -110,11 +109,11 @@ const GlobalStyles = () => (
       pointer-events:none;
     }
     .spk-stat-val {
-      font-family:'Space Mono',monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size:clamp(20px,3vw,32px); font-weight:700; line-height:1; margin-bottom:5px;
       animation:countUp .5s ease-out both;
     }
-    .spk-stat-label { font-size:clamp(9px,1vw,11px); color:#475569; text-transform:uppercase; letter-spacing:.1em; font-family:'Space Mono',monospace; }
+    .spk-stat-label { font-size:clamp(9px,1vw,11px); color:#475569; text-transform:uppercase; letter-spacing:.1em; font-family: 'JetBrains Mono', monospace; }
 
     /* Alumni chips below hero stats */
     .spk-alumni-bar {
@@ -122,11 +121,11 @@ const GlobalStyles = () => (
       border:1px solid rgba(167,139,250,.1); background:rgba(167,139,250,.04);
       display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     }
-    .spk-alumni-label { font-size:10px; font-weight:700; color:#475569; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:.1em; flex-shrink:0; }
+    .spk-alumni-label { font-size:10px; font-weight:700; color:#475569; font-family: 'JetBrains Mono', monospace; text-transform:uppercase; letter-spacing:.1em; flex-shrink:0; }
     .spk-alumni-chip {
       padding:3px 10px; border-radius:7px;
       border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.03);
-      font-size:11px; font-weight:700; color:#64748B; font-family:'Space Mono',monospace;
+      font-size:11px; font-weight:700; color:#64748B; font-family: 'JetBrains Mono', monospace;
     }
 
     /* ─── SECTION WRAPPER ─── */
@@ -136,10 +135,10 @@ const GlobalStyles = () => (
       display:inline-flex; align-items:center; gap:8px;
       padding:5px 16px; border-radius:999px;
       font-size:11px; font-weight:700; letter-spacing:.2em;
-      font-family:'Space Mono',monospace; margin-bottom:14px;
+      font-family: 'JetBrains Mono', monospace; margin-bottom:14px;
     }
     .spk-sec-title {
-      font-family:'Syne',sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size:clamp(22px,4vw,46px);
       font-weight:900; color:white; letter-spacing:-.03em; line-height:1.08; margin-bottom:12px;
     }
@@ -177,7 +176,7 @@ const GlobalStyles = () => (
     .spk-avatar {
       width:82px; height:82px; border-radius:50%;
       display:flex; align-items:center; justify-content:center;
-      font-family:'Space Mono',monospace; font-size:20px; font-weight:700;
+      font-family: 'JetBrains Mono', monospace; font-size:20px; font-weight:700;
       position:relative; z-index:1; border:2px solid; flex-shrink:0;
       transition:transform .35s,box-shadow .35s;
       overflow:hidden;
@@ -187,11 +186,11 @@ const GlobalStyles = () => (
     .spk-orbit-dot2 { position:absolute; width:5px; height:5px; border-radius:50%; top:50%; left:50%; margin:-2.5px 0 0 -2.5px; animation:orbitDot2 5.5s linear infinite; }
 
     .spk-card-body   { padding:16px clamp(14px,2.5vw,24px) 24px; text-align:center; }
-    .spk-event-tag   { display:inline-block; padding:3px 11px; border-radius:999px; font-size:10px; font-weight:700; font-family:'Space Mono',monospace; letter-spacing:.1em; margin-bottom:10px; border:1px solid; }
-    .spk-name        { font-family:'Syne',sans-serif; font-size:clamp(15px,2vw,19px); font-weight:900; color:white; letter-spacing:-.02em; margin-bottom:4px; }
+    .spk-event-tag   { display:inline-block; padding:3px 11px; border-radius:999px; font-size:10px; font-weight:700; font-family: 'JetBrains Mono', monospace; letter-spacing:.1em; margin-bottom:10px; border:1px solid; }
+    .spk-name        { font-family: 'Space Grotesk', sans-serif; font-size:clamp(15px,2vw,19px); font-weight:900; color:white; letter-spacing:-.02em; margin-bottom:4px; }
     .spk-role        { font-size:12px; color:#64748B; margin-bottom:12px; line-height:1.5; }
-    .spk-topic-label { font-size:10px; font-weight:700; color:#475569; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:.12em; margin-bottom:6px; }
-    .spk-topic-chip  { display:inline-block; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700; font-family:'Space Mono',monospace; border:1px solid; margin-bottom:14px; }
+    .spk-topic-label { font-size:10px; font-weight:700; color:#475569; font-family: 'JetBrains Mono', monospace; text-transform:uppercase; letter-spacing:.12em; margin-bottom:6px; }
+    .spk-topic-chip  { display:inline-block; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700; font-family: 'JetBrains Mono', monospace; border:1px solid; margin-bottom:14px; }
     .spk-quote       { position:relative; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.05); background:rgba(255,255,255,.02); font-size:12px; color:#94A3B8; line-height:1.75; font-style:italic; margin-bottom:16px; text-align:left; }
     .spk-socials     { display:flex; justify-content:center; gap:8px; }
     .spk-soc         { width:30px; height:30px; border-radius:8px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); display:flex; align-items:center; justify-content:center; color:#475569; text-decoration:none; font-size:11px; transition:color .2s,border-color .2s,background .2s; }
@@ -201,10 +200,10 @@ const GlobalStyles = () => (
     .spk-quote-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
     .spk-quote-card { padding:clamp(18px,3vw,26px); border-radius:18px; border:1px solid rgba(255,255,255,.05); background:#0A1628; position:relative; overflow:hidden; transition:transform .35s,border-color .35s,box-shadow .35s; }
     .spk-quote-card:hover { transform:translateY(-5px); }
-    .spk-quote-mark { font-size:44px; line-height:.9; font-family:'Syne',sans-serif; font-weight:900; position:absolute; top:10px; left:14px; opacity:.08; }
+    .spk-quote-mark { font-size:44px; line-height:.9; font-family: 'Space Grotesk', sans-serif; font-weight:900; position:absolute; top:10px; left:14px; opacity:.08; }
     .spk-quote-text { font-size:13px; color:#94A3B8; line-height:1.8; font-style:italic; margin-bottom:14px; position:relative; z-index:1; }
     .spk-quote-author { display:flex; align-items:center; gap:10px; }
-    .spk-quote-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; flex-shrink:0; border:1px solid; overflow:hidden; }
+    .spk-quote-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family: 'JetBrains Mono', monospace; font-size:11px; font-weight:700; flex-shrink:0; border:1px solid; overflow:hidden; }
     .spk-quote-name { font-size:13px; font-weight:800; color:white; }
     .spk-quote-role { font-size:11px; color:#64748B; }
 
@@ -213,9 +212,9 @@ const GlobalStyles = () => (
     .spk-process-grid::before { content:""; position:absolute; top:36px; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,rgba(167,139,250,.2),rgba(79,70,229,.2),transparent); pointer-events:none; }
     .spk-process-step { text-align:center; padding:clamp(18px,3vw,26px) clamp(12px,2vw,18px); border-radius:16px; border:1px solid rgba(255,255,255,.04); background:#0A1628; transition:transform .3s,border-color .3s; }
     .spk-process-step:hover { transform:translateY(-5px); border-color:rgba(167,139,250,.12); }
-    .spk-process-num { width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:14px; font-weight:700; margin:0 auto 14px; border:1px solid; background:#050D1A; position:relative; z-index:1; transition:box-shadow .3s; }
+    .spk-process-num { width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family: 'JetBrains Mono', monospace; font-size:14px; font-weight:700; margin:0 auto 14px; border:1px solid; background:#050D1A; position:relative; z-index:1; transition:box-shadow .3s; }
     .spk-process-step:hover .spk-process-num { box-shadow:0 0 20px rgba(167,139,250,.3); }
-    .spk-process-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:white; margin-bottom:7px; }
+    .spk-process-title { font-family: 'Space Grotesk', sans-serif; font-size:14px; font-weight:800; color:white; margin-bottom:7px; }
     .spk-process-desc  { font-size:12px; color:#64748B; line-height:1.65; }
 
     /* ─── BENEFITS 6-CARD GRID ─── */
@@ -245,12 +244,12 @@ const GlobalStyles = () => (
     .spk-cta-left     { padding:clamp(28px,4vw,50px) clamp(20px,4vw,46px); border-right:1px solid rgba(255,255,255,.05); }
     .spk-cta-right    { padding:clamp(28px,4vw,50px) clamp(20px,4vw,46px); display:flex; flex-direction:column; gap:9px; }
 
-    .spk-cta-eyebrow { display:inline-flex; align-items:center; gap:7px; padding:5px 14px; border-radius:999px; border:1px solid rgba(167,139,250,.25); background:rgba(167,139,250,.07); font-size:11px; font-weight:700; letter-spacing:.2em; color:#A78BFA; font-family:'Space Mono',monospace; margin-bottom:16px; }
-    .spk-cta-title   { font-family:'Syne',sans-serif; font-size:clamp(22px,3.5vw,40px); font-weight:900; color:white; letter-spacing:-.02em; line-height:1.1; margin-bottom:12px; }
+    .spk-cta-eyebrow { display:inline-flex; align-items:center; gap:7px; padding:5px 14px; border-radius:999px; border:1px solid rgba(167,139,250,.25); background:rgba(167,139,250,.07); font-size:11px; font-weight:700; letter-spacing:.2em; color:#A78BFA; font-family: 'JetBrains Mono', monospace; margin-bottom:16px; }
+    .spk-cta-title   { font-family: 'Space Grotesk', sans-serif; font-size:clamp(22px,3.5vw,40px); font-weight:900; color:white; letter-spacing:-.02em; line-height:1.1; margin-bottom:12px; }
     .spk-cta-desc    { color:#64748B; font-size:clamp(13px,1.4vw,14px); line-height:1.8; margin-bottom:24px; }
     .spk-metrics     { display:flex; gap:clamp(14px,3vw,26px); flex-wrap:wrap; margin-bottom:28px; }
-    .spk-metric-val   { font-family:'Space Mono',monospace; font-size:clamp(18px,2.5vw,24px); font-weight:700; line-height:1; margin-bottom:3px; }
-    .spk-metric-label { font-size:10px; color:#475569; text-transform:uppercase; letter-spacing:.12em; font-family:'Space Mono',monospace; }
+    .spk-metric-val   { font-family: 'JetBrains Mono', monospace; font-size:clamp(18px,2.5vw,24px); font-weight:700; line-height:1; margin-bottom:3px; }
+    .spk-metric-label { font-size:10px; color:#475569; text-transform:uppercase; letter-spacing:.12em; font-family: 'JetBrains Mono', monospace; }
 
     .spk-apply-btn {
       display:inline-flex; align-items:center; justify-content:center; gap:9px;
@@ -259,7 +258,7 @@ const GlobalStyles = () => (
       background:linear-gradient(135deg,#A78BFA,#4F46E5);
       border:none; cursor:pointer;
       transition:transform .25s,box-shadow .25s,filter .25s;
-      font-family:'Manrope',sans-serif; text-decoration:none; width:fit-content;
+      font-family: 'Plus Jakarta Sans', sans-serif; text-decoration:none; width:fit-content;
     }
     .spk-apply-btn:hover { transform:scale(1.05); box-shadow:0 0 50px rgba(167,139,250,.45); filter:brightness(1.1); }
     .spk-contact-row   { display:flex; align-items:center; gap:7px; margin-top:13px; flex-wrap:wrap; }
@@ -267,7 +266,7 @@ const GlobalStyles = () => (
     .spk-contact-item a { color:#A78BFA; text-decoration:none; font-weight:600; transition:color .2s; }
     .spk-contact-item a:hover { color:white; }
 
-    .spk-checklist-label { font-size:10px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:.12em; font-family:'Space Mono',monospace; margin-bottom:2px; }
+    .spk-checklist-label { font-size:10px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:.12em; font-family: 'JetBrains Mono', monospace; margin-bottom:2px; }
     .spk-checklist-item  { display:flex; align-items:center; gap:10px; padding:9px 13px; border-radius:10px; border:1px solid rgba(255,255,255,.04); background:rgba(255,255,255,.02); font-size:12px; color:#94A3B8; transition:border-color .2s,background .2s; }
     .spk-checklist-item:hover { border-color:rgba(167,139,250,.15); background:rgba(167,139,250,.04); }
     .spk-trust-row  { display:flex; gap:16px; margin-top:6px; padding-top:10px; border-top:1px solid rgba(255,255,255,.04); flex-wrap:wrap; }
@@ -383,17 +382,16 @@ const SPEAKERS = [
 const TESTIMONIALS = [
   // { quote:"Speaking at TechEra was one of the most energizing experiences of my career. The audience was genuinely curious and asked the sharpest questions.", name:"Pragati Srivastava", role:"Ex-Amazon · Java Backend", initials:"PS", accent:"#00EEFF",
   //   photo:"/images/pragati-srivastava.png" },
-  // // { quote:"Empowering the next generation of developers by building communities, contributing to open source, and turning ideas into impactful innovations. ✨", name:"Bhawna Chauhan",   role:"Founder - SheBuilds",photo: "/images/Bhawna.png",   initials:"SM", accent:"#4ADE80" },
+
   // { quote:"Technology is not just about writing better code; it’s about solving real problems, empowering communities, and inspiring the next generation of developers to build, innovate, and create impact.",  name:"Gautam Kumar",      role:"Developer Advocate · Fetch.ai", photo: "/images/Gautam.png",          initials:"GK", accent:"#A78BFA" },
 ];
 
 const BENEFITS = [
-  { icon:"🎤", color:"#A78BFA", bg:"rgba(167,139,250,.1)", border:"rgba(167,139,250,.2)", title:"A Real Stage, Real Audience",   desc:"Speak to 200–1,000+ developers, designers, and founders who show up to learn — not just collect swag." },
-  { icon:"📣", color:"#00EEFF", bg:"rgba(0,238,255,.1)",   border:"rgba(0,238,255,.2)",   title:"10K+ Social Amplification",     desc:"Your talk is promoted across TechEra's Instagram, LinkedIn & newsletter — before, during, and after." },
-  { icon:"🤝", color:"#4F46E5", bg:"rgba(79,70,229,.12)",  border:"rgba(79,70,229,.25)",  title:"Elite Backstage Networking",    desc:"Connect with speakers, sponsors, and community leaders building India's next generation of tech." },
-  { icon:"🏆", color:"#FEBC2E", bg:"rgba(254,188,46,.1)",  border:"rgba(254,188,46,.2)",  title:"Official Speaker Certificate",  desc:"A recognized TechEra credential — add it to your LinkedIn, resume, and portfolio with pride." },
-  // { icon:"🎁", color:"#4ADE80", bg:"rgba(74,222,128,.1)",  border:"rgba(74,222,128,.2)",  title:"Exclusive Speaker Perks",       desc:"Speaker merch, lifetime free event access, and priority invites to every future TechEra event." },
-  { icon:"🌍", color:"#F97316", bg:"rgba(249,115,22,.1)",  border:"rgba(249,115,22,.2)",  title:"Featured Community Profile",    desc:"Your profile lives on TechEra's website and is shared across our partner networks in India and beyond." },
+  { Icon: Mic2,      color: "#A78BFA", bg: "rgba(167,139,250,.1)", border: "rgba(167,139,250,.2)", title: "A Real Stage, Real Audience",    desc: "Speak to 200–1,000+ developers, designers, and founders who show up to learn — not just collect swag." },
+  { Icon: Megaphone, color: "#00EEFF", bg: "rgba(0,238,255,.1)",   border: "rgba(0,238,255,.2)",   title: "10K+ Social Amplification",     desc: "Your talk is promoted across TechEra's Instagram, LinkedIn & newsletter — before, during, and after." },
+  { Icon: Users,     color: "#4F46E5", bg: "rgba(79,70,229,.12)",  border: "rgba(79,70,229,.25)",  title: "Elite Backstage Networking",    desc: "Connect with speakers, sponsors, and community leaders building India's next generation of tech." },
+  { Icon: Award,     color: "#FEBC2E", bg: "rgba(254,188,46,.1)",  border: "rgba(254,188,46,.2)",  title: "Official Speaker Certificate",  desc: "A recognized TechEra credential — add it to your LinkedIn, resume, and portfolio with pride." },
+  { Icon: Globe2,    color: "#F97316", bg: "rgba(249,115,22,.1)",  border: "rgba(249,115,22,.2)",  title: "Featured Community Profile",    desc: "Your profile lives on TechEra's website and is shared across our partner networks in India and beyond." },
 ];
 
 const PROCESS_STEPS = [
@@ -461,10 +459,9 @@ export default function SpeakersPage() {
   return (
     <div className="spk-page">
       <GlobalStyles />
-      <Navbar />
 
       {/* ══ HERO ══ */}
-      <section className="spk-hero">
+      <section className="spk-hero" style={{ paddingTop: "clamp(110px,14vw,150px)" }}>
         <div className="spk-hero-bg" /><div className="spk-hero-grid" /><HeroBgCanvas />
         <div className="spk-hero-inner">
           <div className="spk-hero-left">
@@ -576,7 +573,7 @@ export default function SpeakersPage() {
               onMouseEnter={e=>{e.currentTarget.style.borderColor=`${b.color}22`;e.currentTarget.style.background=b.bg;e.currentTarget.style.transform="translateX(4px)";}}
               onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,.05)";e.currentTarget.style.background="rgba(255,255,255,.02)";e.currentTarget.style.transform="none";}}
             >
-              <div className="spk-benefit-icon" style={{background:b.bg,borderColor:b.border}}>{b.icon}</div>
+              <div className="spk-benefit-icon" style={{background:b.bg,borderColor:b.border,display:"flex",alignItems:"center",justifyContent:"center"}}><b.Icon size={16} color={b.color} /></div>
               <div style={{flex:1}}>
                 <div className="spk-benefit-title">{b.title}</div>
                 <div className="spk-benefit-desc">{b.desc}</div>
@@ -619,12 +616,16 @@ export default function SpeakersPage() {
                   onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(167,139,250,.15)";e.currentTarget.style.background="rgba(167,139,250,.04)";}}
                   onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,.04)";e.currentTarget.style.background="rgba(255,255,255,.02)";}}
                 >
-                  <span style={{color:"#4ADE80",flexShrink:0,fontSize:13}}>✓</span>{text}
+                  <CheckCircle2 size={13} color="#4ADE80" style={{flexShrink:0}} />{text}
                 </div>
               ))}
               <div className="spk-trust-row">
-                {[{icon:"⚡",label:"48h Response"},{icon:"🆓",label:"100% Free"},{icon:"🔒",label:"No Spam"}].map(({icon,label})=>(
-                  <div key={label} className="spk-trust-item"><span>{icon}</span>{label}</div>
+                {[
+                  {Icon: Zap,  label:"48h Response"},
+                  {Icon: Gift, label:"100% Free"},
+                  {Icon: Lock, label:"No Spam"}
+                ].map(({Icon, label}) => (
+                  <div key={label} className="spk-trust-item"><Icon size={12} />{label}</div>
                 ))}
               </div>
             </div>
@@ -632,20 +633,6 @@ export default function SpeakersPage() {
         </div>
       </section>
 
-      {/* ══ FOOTER ══ */}
-      <footer className="spk-footer">
-        <div className="spk-footer-inner">
-          <span style={{color:"#475569",fontSize:12}}>© 2025 TechEra Community. All rights reserved.</span>
-          <div className="spk-footer-links">
-            {["Terms of Service","Privacy Policy","Cookie Policy"].map(l=>(
-              <a key={l} href="#" style={{color:"#475569",fontSize:12,textDecoration:"none",transition:"color .2s"}}
-                onMouseEnter={e=>e.currentTarget.style.color="#94A3B8"}
-                onMouseLeave={e=>e.currentTarget.style.color="#475569"}
-              >{l}</a>
-            ))}
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
