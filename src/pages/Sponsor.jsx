@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import { Eye, Target, Building2, Megaphone, Users, FileText, Leaf, Star, Gem, CheckCircle2, Rocket, GraduationCap, Gift, Handshake, Zap, Lock, PartyPopper, Sparkles, Check } from "lucide-react";
 
 // ─── GLOBAL STYLES ─────────────────────────────────────────────────────────────
 const GlobalStyles = () => (
   <style>{`
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; background: #050D1A; }
+    /* Global resets removed to favor Tailwind */
 
-    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
     @keyframes shimmer     { 0%{background-position:0% center} 100%{background-position:200% center} }
     @keyframes pulseGlow   { 0%,100%{opacity:.4} 50%{opacity:1} }
@@ -22,27 +21,28 @@ const GlobalStyles = () => (
     @keyframes borderPulse { 0%,100%{border-color:rgba(0,238,255,.2)} 50%{border-color:rgba(0,238,255,.5)} }
     @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-    .sp-page { font-family: 'Manrope', sans-serif; background: #050D1A; color: white; min-height: 100vh; }
+    .sp-page { font-family: 'Plus Jakarta Sans', sans-serif; background: #050D1A; color: white; min-height: 100vh; }
     .shimmer-text { background: linear-gradient(90deg,#00EEFF 0%,#4F46E5 40%,#A78BFA 70%,#00EEFF 100%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 4s linear infinite; }
     .grad-text { background: linear-gradient(135deg,#00EEFF,#4F46E5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     .gold-text { background: linear-gradient(135deg,#FEBC2E,#F97316); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 
     /* ── HERO ── */
-    .sp-hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; padding: 100px 28px 60px; }
+    .sp-hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; padding: clamp(110px, 14vw, 150px) 28px 60px; }
     .sp-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,238,255,.06) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(79,70,229,.08) 0%, transparent 60%), #050D1A; }
     .sp-hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,238,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,238,255,.025) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
-    .sp-hero-content { position: relative; max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .sp-hero-content { position: relative; max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+    @media (min-width: 1024px) { .sp-hero-content { grid-template-columns: 1fr 1fr; gap: 60px; } }
     .sp-hero-left { animation: slideUp .7s ease-out both; }
     .sp-hero-right { animation: slideUp .7s .15s ease-out both; }
 
-    .sp-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(0,238,255,.25); background: rgba(0,238,255,.06); font-size: 11px; font-weight: 700; letter-spacing: .22em; color: #00EEFF; font-family: 'Space Mono', monospace; margin-bottom: 20px; }
-    .sp-hero-title { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5.5vw, 68px); font-weight: 900; line-height: 1.02; letter-spacing: -.03em; color: white; margin-bottom: 20px; }
+    .sp-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(0,238,255,.25); background: rgba(0,238,255,.06); font-size: 11px; font-weight: 700; letter-spacing: .22em; color: #00EEFF; font-family: 'JetBrains Mono', monospace; margin-bottom: 20px; }
+    .sp-hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 5.5vw, 68px); font-weight: 900; line-height: 1.02; letter-spacing: -.03em; color: white; margin-bottom: 20px; }
     .sp-hero-sub { color: #64748B; font-size: 16px; line-height: 1.8; max-width: 500px; margin-bottom: 36px; }
 
     .sp-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
-    .sp-cta-primary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; border-radius: 16px; font-weight: 800; font-size: 15px; color: #050D1A; background: linear-gradient(135deg,#00EEFF,#4F46E5); border: none; cursor: pointer; transition: transform .25s, box-shadow .25s, filter .25s; font-family: 'Manrope', sans-serif; text-decoration: none; white-space: nowrap; }
+    .sp-cta-primary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; border-radius: 16px; font-weight: 800; font-size: 15px; color: #050D1A; background: linear-gradient(135deg,#00EEFF,#4F46E5); border: none; cursor: pointer; transition: transform .25s, box-shadow .25s, filter .25s; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; white-space: nowrap; }
     .sp-cta-primary:hover { transform: scale(1.05); box-shadow: 0 0 48px rgba(0,238,255,.4); filter: brightness(1.08); }
-    .sp-cta-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 15px 28px; border-radius: 16px; font-weight: 700; font-size: 14px; color: #94A3B8; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); cursor: pointer; transition: all .25s; font-family: 'Manrope', sans-serif; text-decoration: none; white-space: nowrap; }
+    .sp-cta-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 15px 28px; border-radius: 16px; font-weight: 700; font-size: 14px; color: #94A3B8; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); cursor: pointer; transition: all .25s; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; white-space: nowrap; }
     .sp-cta-secondary:hover { color: #00EEFF; border-color: rgba(0,238,255,.3); background: rgba(0,238,255,.05); }
 
     /* ── HERO STATS ── */
@@ -50,22 +50,22 @@ const GlobalStyles = () => (
     .sp-stat-card { padding: 22px 22px; border-radius: 18px; border: 1px solid rgba(255,255,255,.06); background: #0A1628; position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
     .sp-stat-card:hover { border-color: rgba(0,238,255,.2); transform: translateY(-3px); }
     .sp-stat-card::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at top left, rgba(0,238,255,.05), transparent 60%); pointer-events:none; }
-    .sp-stat-val { font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700; color: #00EEFF; line-height: 1; margin-bottom: 5px; animation: countUp .5s ease-out both; }
+    .sp-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; color: #00EEFF; line-height: 1; margin-bottom: 5px; animation: countUp .5s ease-out both; }
     .sp-stat-val.gold { color: #FEBC2E; }
     .sp-stat-val.purple { color: #A78BFA; }
     .sp-stat-val.green { color: #4ADE80; }
-    .sp-stat-label { font-size: 12px; color: #475569; text-transform: uppercase; letter-spacing: .1em; font-family: 'Space Mono', monospace; }
+    .sp-stat-label { font-size: 12px; color: #475569; text-transform: uppercase; letter-spacing: .1em; font-family: 'JetBrains Mono', monospace; }
 
     /* ── SECTION WRAPPER ── */
     .sp-section { max-width: 1200px; margin: 0 auto; padding: 0 28px 100px; }
     .sp-section-head { text-align: center; margin-bottom: 60px; }
-    .sp-sec-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(254,188,46,.25); background: rgba(254,188,46,.06); font-size: 11px; font-weight: 700; letter-spacing: .2em; color: #FEBC2E; font-family: 'Space Mono', monospace; margin-bottom: 16px; }
-    .sp-sec-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 900; color: white; letter-spacing: -.03em; line-height: 1.08; margin-bottom: 12px; }
+    .sp-sec-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(254,188,46,.25); background: rgba(254,188,46,.06); font-size: 11px; font-weight: 700; letter-spacing: .2em; color: #FEBC2E; font-family: 'JetBrains Mono', monospace; margin-bottom: 16px; }
+    .sp-sec-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 900; color: white; letter-spacing: -.03em; line-height: 1.08; margin-bottom: 12px; }
     .sp-sec-sub { color: #64748B; font-size: 15px; line-height: 1.75; max-width: 500px; margin: 0 auto; }
     .sp-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,238,255,.18), transparent); max-width: 1200px; margin: 0 auto 80px; }
 
     /* ── TIER BADGES ── */
-    .sp-tier-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: .12em; }
+    .sp-tier-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: .12em; }
     .tier-platinum { background: rgba(148,163,184,.1); border: 1px solid rgba(148,163,184,.3); color: #94A3B8; }
     .tier-gold { background: rgba(254,188,46,.1); border: 1px solid rgba(254,188,46,.3); color: #FEBC2E; }
     .tier-silver { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); color: #A78BFA; }
@@ -78,12 +78,15 @@ const GlobalStyles = () => (
     .tier-venue { background: rgba(148,163,184,.08); border: 1px solid rgba(148,163,184,.3); color: #94A3B8; }
 
     /* ── SPONSORS SHOWCASE GRID ── */
-    .sp-showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sp-showcase-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 768px) { .sp-showcase-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .sp-showcase-grid { grid-template-columns: repeat(3, 1fr); } }
 
     /* Featured / Platinum span full row */
     .sp-sponsor-card { position: relative; border-radius: 22px; border: 1px solid rgba(255,255,255,.05); background: #0A1628; overflow: hidden; transition: transform .4s cubic-bezier(.23,1,.32,1), border-color .4s, box-shadow .4s; }
     .sp-sponsor-card:hover { transform: translateY(-8px); }
-    .sp-sponsor-card.featured { grid-column: span 3; display: grid; grid-template-columns: 1fr 1fr; }
+    .sp-sponsor-card.featured { grid-column: span 1; display: grid; grid-template-columns: 1fr; }
+    @media (min-width: 1024px) { .sp-sponsor-card.featured { grid-column: span 3; grid-template-columns: 1fr 1fr; } }
     .sp-sponsor-card-bar { height: 3px; width: 100%; }
     .sp-sponsor-card.featured .sp-sponsor-card-bar { display: none; }
     .sp-sponsor-card.featured .sp-featured-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
@@ -129,9 +132,12 @@ const GlobalStyles = () => (
     .sp-benefits-card { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid rgba(0,238,255,.15); background: linear-gradient(135deg, #08142a 0%, #0d1f3c 50%, #0a1628 100%); }
     .sp-benefits-glow-tl { position: absolute; top: -60px; left: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(0,238,255,.12), transparent 65%); pointer-events: none; animation: pulseGlow 4s ease-in-out infinite; }
     .sp-benefits-glow-br { position: absolute; bottom: -60px; right: -60px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,.1), transparent 65%); pointer-events: none; animation: pulseGlow 4s 2s ease-in-out infinite; }
-    .sp-benefits-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-    .sp-benefits-left { padding: 56px 48px; border-right: 1px solid rgba(255,255,255,.05); }
-    .sp-benefits-right { padding: 56px 48px; display: flex; flex-direction: column; gap: 14px; }
+    .sp-benefits-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; gap: 0; }
+    @media (min-width: 1024px) { .sp-benefits-inner { grid-template-columns: 1fr 1fr; } }
+    .sp-benefits-left { padding: 40px 24px; border-bottom: 1px solid rgba(255,255,255,.05); border-right: none; }
+    @media (min-width: 1024px) { .sp-benefits-left { padding: 56px 48px; border-right: 1px solid rgba(255,255,255,.05); border-bottom: none; } }
+    .sp-benefits-right { padding: 40px 24px; display: flex; flex-direction: column; gap: 14px; }
+    @media (min-width: 1024px) { .sp-benefits-right { padding: 56px 48px; } }
     .sp-benefits-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px; border: 1px solid rgba(0,238,255,.25); background: rgba(0,238,255,.07); font-size: 11px; font-weight: 700; letter-spacing: .2em; color: #00EEFF; font-family: 'Space Mono', monospace; margin-bottom: 20px; }
     .sp-benefits-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 3.5vw, 40px); font-weight: 900; color: white; letter-spacing: -.02em; line-height: 1.12; margin-bottom: 14px; }
     .sp-benefits-desc { color: #64748B; font-size: 14px; line-height: 1.8; margin-bottom: 32px; max-width: 400px; }
@@ -299,30 +305,30 @@ const SPECIAL_SPONSORS = [
 ];
 
 const BENEFITS = [
-  { icon: "👁️", color: "#00EEFF", bg: "rgba(0,238,255,.1)", border: "rgba(0,238,255,.2)", title: "Brand Visibility", desc: "Your logo on all event materials, banners, digital assets, and social media posts reaching 10K+ developers." },
-  { icon: "🎯", color: "#FEBC2E", bg: "rgba(254,188,46,.1)", border: "rgba(254,188,46,.2)", title: "Targeted Reach", desc: "Direct exposure to students, developers, designers, and founders actively building in India's tech ecosystem." },
-  { icon: "🏢", color: "#A78BFA", bg: "rgba(167,139,250,.1)", border: "rgba(167,139,250,.2)", title: "Dedicated Booth / Slot", desc: "A dedicated space at in-person events to showcase products, recruit talent, and engage directly with attendees." },
-  { icon: "📣", color: "#4ADE80", bg: "rgba(74,222,128,.1)", border: "rgba(74,222,128,.2)", title: "Social Amplification", desc: "Shoutouts, co-branded posts, and feature stories across our Instagram, LinkedIn, and community channels." },
-  { icon: "🤝", color: "#F97316", bg: "rgba(249,115,22,.1)", border: "rgba(249,115,22,.2)", title: "Talent Pipeline", desc: "First access to our community of 2,000+ developers for internships, hiring, and brand ambassadorships." },
-  { icon: "📄", color: "#06B6D4", bg: "rgba(6,182,212,.1)", border: "rgba(6,182,212,.2)", title: "Recap & Content", desc: "Featured in post-event reports, highlight reels, and media coverage — your brand story told authentically." },
+  { Icon: Eye,        color: "#00EEFF", bg: "rgba(0,238,255,.1)",   border: "rgba(0,238,255,.2)",   title: "Brand Visibility",       desc: "Your logo on all event materials, banners, digital assets, and social media posts reaching 10K+ developers." },
+  { Icon: Target,     color: "#FEBC2E", bg: "rgba(254,188,46,.1)",  border: "rgba(254,188,46,.2)",  title: "Targeted Reach",         desc: "Direct exposure to students, developers, designers, and founders actively building in India's tech ecosystem." },
+  { Icon: Building2,  color: "#A78BFA", bg: "rgba(167,139,250,.1)", border: "rgba(167,139,250,.2)", title: "Dedicated Booth / Slot",  desc: "A dedicated space at in-person events to showcase products, recruit talent, and engage directly with attendees." },
+  { Icon: Megaphone,  color: "#4ADE80", bg: "rgba(74,222,128,.1)",  border: "rgba(74,222,128,.2)",  title: "Social Amplification",   desc: "Shoutouts, co-branded posts, and feature stories across our Instagram, LinkedIn, and community channels." },
+  { Icon: Handshake,  color: "#F97316", bg: "rgba(249,115,22,.1)",  border: "rgba(249,115,22,.2)",  title: "Talent Pipeline",         desc: "First access to our community of 2,000+ developers for internships, hiring, and brand ambassadorships." },
+  { Icon: FileText,   color: "#06B6D4", bg: "rgba(6,182,212,.1)",   border: "rgba(6,182,212,.2)",   title: "Recap & Content",         desc: "Featured in post-event reports, highlight reels, and media coverage — your brand story told authentically." },
 ];
 
 const SPONSOR_TIERS = [
   {
-    name: "Community", icon: "🌱", color: "#00EEFF", gradient: "linear-gradient(135deg,#00EEFF,#06B6D4)",
+    name: "Community", Icon: Leaf,  color: "#00EEFF", gradient: "linear-gradient(135deg,#00EEFF,#06B6D4)",
     desc: "Perfect for brands looking to associate with tech talent and build grassroots awareness.",
     features: ["Logo on event materials", "Social media mention", "Attendee goodie bag inclusion", "Certificate of partnership"],
     highlight: false,
   },
   {
-    name: "Gold", icon: "⭐", color: "#FEBC2E", gradient: "linear-gradient(135deg,#FEBC2E,#F97316)",
+    name: "Gold",      Icon: Star,  color: "#FEBC2E", gradient: "linear-gradient(135deg,#FEBC2E,#F97316)",
     desc: "Prime positioning for brands wanting deep community engagement and visibility.",
     features: ["Everything in Community", "Dedicated booth at event", "5 minutes brand talk slot", "Co-branded social campaign", "Priority talent access"],
     highlight: true,
     popular: true,
   },
   {
-    name: "Platinum", icon: "💎", color: "#94A3B8", gradient: "linear-gradient(135deg,#CBD5E1,#94A3B8)",
+    name: "Platinum",  Icon: Gem,   color: "#94A3B8", gradient: "linear-gradient(135deg,#CBD5E1,#94A3B8)",
     desc: "Full-spectrum partnership for brands ready to become a core part of TechEra's identity.",
     features: ["Everything in Gold", "Year-round brand presence", "Co-hosted events", "Exclusive sponsor rights", "Direct hiring pipeline", "Featured sponsor profile"],
     highlight: false,
@@ -383,7 +389,7 @@ function FeaturedSponsorCard({ sp }) {
         <div className="sp-logo-ring-wrap" style={{ marginLeft: 0 }}>
           <div className="sp-logo-ring" style={{ borderColor: sp.accent }} />
           <div className="sp-logo-box" style={{ background: `${sp.accent}10`, borderColor: `${sp.accent}30`, boxShadow: hov ? `0 0 32px ${sp.accent}25` : "none" }}>
-            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : sp.emoji}
+            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : <Building2 size={32} color={sp.accent} />}
           </div>
         </div>
         <div style={{ marginBottom: 10 }}>
@@ -436,7 +442,7 @@ function SponsorCard({ sp }) {
         <div className="sp-logo-ring-wrap">
           <div className="sp-logo-ring" style={{ borderColor: sp.accent }} />
           <div className="sp-logo-box" style={{ background: `${sp.accent}10`, borderColor: `${sp.accent}28`, boxShadow: hov ? `0 0 22px ${sp.accent}20` : "none" }}>
-            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : sp.emoji}
+            {sp.logo ? <img src={sp.logo} alt={sp.name} style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "14px" }} /> : <Building2 size={32} color={sp.accent} />}
           </div>
         </div>
         <div className={`sp-tier-badge tier-${sp.tier.toLowerCase().replace(/\s+/g, '-')}`} style={{ marginBottom: 10 }}>
@@ -465,7 +471,7 @@ function SponsorForm() {
 
   if (sent) return (
     <div style={{ padding: "60px 32px", textAlign: "center", animation: "slideUp .4s ease-out both" }}>
-      <div style={{ fontSize: 56, marginBottom: 16 }}>🎉</div>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}><PartyPopper size={56} color="#00EEFF" /></div>
       <div style={{ fontFamily: "Syne,sans-serif", fontSize: 26, fontWeight: 900, color: "white", marginBottom: 10 }}>We'll be in touch soon!</div>
       <div style={{ color: "#64748B", fontSize: 14, lineHeight: 1.75 }}>Our partnerships team will reach out within 24 hours to schedule a discovery call.</div>
     </div>
@@ -505,10 +511,10 @@ function SponsorForm() {
           onBlur={e => e.target.style.borderColor = "rgba(255,255,255,.08)"}
         >
           <option value="">Select Sponsorship Tier</option>
-          <option value="community">🌱 Community Partner</option>
-          <option value="gold">⭐ Gold Partner</option>
-          <option value="platinum">💎 Platinum Partner</option>
-          <option value="custom">✨ Custom / Discuss</option>
+          <option value="community">[ Leaf ] Community Partner</option>
+          <option value="gold">[ Star ] Gold Partner</option>
+          <option value="platinum">[ Gem ] Platinum Partner</option>
+          <option value="custom">[ Custom ] Discuss with us</option>
         </select>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 28 }}>
@@ -538,10 +544,9 @@ export default function SponsorsPage() {
   return (
     <div className="sp-page">
       <GlobalStyles />
-      <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="sp-hero">
+      <section className="sp-hero" style={{ paddingTop: "clamp(110px,14vw,150px)" }}>
         <div className="sp-hero-bg" />
         <div className="sp-hero-grid-lines" />
         <HeroBgCanvas />
@@ -601,7 +606,7 @@ export default function SponsorsPage() {
         <div className="sp-trust-inner">
           <div className="sp-trust-label">Official Partners →</div>
           <div className="sp-trust-logos">
-            {["🚀 Tech4Hack", "🎓 Edubuk", "🎁 OSEN", "🤝 MetaSpace", "⚡ Opp Skill"].map(name => (
+            {["Tech4Hack", "Edubuk", "OSEN", "MetaSpace", "Opp Skill"].map(name => (
               <div key={name} className="sp-trust-logo-chip">{name}</div>
             ))}
           </div>
@@ -646,7 +651,7 @@ export default function SponsorsPage() {
           {BENEFITS.map((b, i) => (
             <div key={i} className="sp-benefit-item">
               <div className="sp-benefit-icon-box" style={{ background: b.bg, borderColor: b.border }}>
-                <span style={{ fontSize: 18 }}>{b.icon}</span>
+                <b.Icon size={18} color={b.color} />
               </div>
               <div>
                 <div className="sp-benefit-text-title">{b.title}</div>
@@ -700,20 +705,20 @@ export default function SponsorsPage() {
             <div className="sp-benefits-right">
               <div style={{ fontSize: 12, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: ".12em", fontFamily: "Space Mono,monospace", marginBottom: 4 }}>What's included</div>
               {[
-                { icon: "✅", text: "Logo on all event banners & materials" },
-                { icon: "✅", text: "Dedicated social media shoutouts" },
-                { icon: "✅", text: "Booth space at in-person events" },
-                { icon: "✅", text: "Access to talent pipeline & hiring" },
-                { icon: "✅", text: "Co-branded blog & recap content" },
-                { icon: "✅", text: "Certificate of official partnership" },
-                { icon: "✅", text: "Custom activation slots available" },
-                { icon: "✅", text: "Priority placement in future events" },
-              ].map((item, i) => (
+                "Logo on all event banners & materials",
+                "Dedicated social media shoutouts",
+                "Booth space at in-person events",
+                "Access to talent pipeline & hiring",
+                "Co-branded blog & recap content",
+                "Certificate of official partnership",
+                "Custom activation slots available",
+                "Priority placement in future events",
+              ].map((text, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", borderRadius: 11, border: "1px solid rgba(255,255,255,.04)", background: "rgba(255,255,255,.02)", fontSize: 13, color: "#94A3B8", transition: "border-color .2s" }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(0,238,255,.12)"}
                   onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.04)"}
                 >
-                  <span style={{ color: "#4ADE80", flexShrink: 0 }}>{item.icon}</span> {item.text}
+                  <CheckCircle2 size={14} color="#4ADE80" style={{ flexShrink: 0 }} /> {text}
                 </div>
               ))}
             </div>
